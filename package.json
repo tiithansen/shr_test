@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "tsc && node dist/app.js",
-    "test": "jest"
+    "test": "jest --outputFile=\"reports.xml\""
   },
   "repository": {
     "type": "git",
@@ -21,8 +21,19 @@
   "devDependencies": {
     "@types/jest": "^26.0.23",
     "jest": "^27.0.4",
+    "jest-junit": "^12.1.0",
     "ts-jest": "^27.0.3",
     "tslint": "^6.1.3",
     "typescript": "^4.3.2"
+  },
+  "jest-junit": {
+    "suiteName": "jest tests",
+    "outputDirectory": ".",
+    "outputName": "junit.xml",
+    "uniqueOutputName": "false",
+    "classNameTemplate": "{classname}-{title}",
+    "titleTemplate": "{classname}-{title}",
+    "ancestorSeparator": " › ",
+    "usePathForSuiteName": "true"
   }
 }
