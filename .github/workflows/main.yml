@@ -28,6 +28,9 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      - uses: azure/setup-kubectl@v1
+        with:
+          version: 'default' # default is latest stable
 
       # Runs a single command using the runners shell
       - name: Install deps
@@ -44,9 +47,6 @@ jobs:
           path: junit.xml    # Path to test results
           reporter: jest-junit        # Format of test results
       - name: "Deploy"
-        uses: azure/setup-kubectl@v1
-        with:
-          version: 'default' # default is latest stable
         run: kubectl config set-credentials sa-user --token=${{ secrets.TOKEN }}
         run: kubectl config set-context sa-context --user=sa-user
         run: kubectl get pods
