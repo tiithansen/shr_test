@@ -35,5 +35,8 @@
     "titleTemplate": "{classname}-{title}",
     "ancestorSeparator": " › ",
     "usePathForSuiteName": "true"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
   }
 }
