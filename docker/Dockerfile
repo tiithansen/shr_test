@@ -1,13 +1,10 @@
-FROM node:14
+FROM ubuntu:bionic
 
-WORKDIR /usr/src/app
-
-COPY package*.json ../
-
-RUN npm ci --only=production
-RUN npm run build
-
-COPY . .
-
-EXPOSE 8080
-CMD [ "node", "dist/main.js" ]
+RUN apt update && \
+      apt install -y curl && \
+      curl -LO https://storage.googleapis.com/kubernetes-release/release/` \
+      curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl && \
+      chmod +x ./kubectl && \
+      mv ./kubectl /usr/local/bin/kubectl
+      
+CMD kubectl get pods
