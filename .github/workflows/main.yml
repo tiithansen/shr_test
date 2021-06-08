@@ -44,8 +44,9 @@ jobs:
           path: junit.xml    # Path to test results
           reporter: jest-junit        # Format of test results
       - name: "Deploy"
-        uses: actions-hub/kubectl@master
-        env:
-          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+        uses: azure/setup-kubectl@v1
         with:
-          args: get pods
+          version: 'default' # default is latest stable
+        run: kubectl config set-credentials sa-user --token=${{ secrets.TOKEN }}
+        run: kubectl config set-context sa-context --user=sa-user
+        run: kubectl get pods
