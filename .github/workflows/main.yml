@@ -45,9 +45,9 @@ jobs:
           reporter: jest-junit        # Format of test results
       - name: "Setup config"
         run: |
-          echo ${{ secrets.KUBE_CA_CERT }} >> ca.crt
-          echo ${{ secrets.KUBE_CLIENT_CERT }} >> client.crt
-          echo ${{ secrets.KUBE_CLIENT_KEY }} >> client.key
+          echo "${{ secrets.KUBE_CA_CERT }}" >> ca.crt
+          echo "${{ secrets.KUBE_CLIENT_CERT }}" >> client.crt
+          echo "${{ secrets.KUBE_CLIENT_KEY }}" >> client.key
       - name: "Get pods"
         uses: actions-hub/kubectl@master
         env:
