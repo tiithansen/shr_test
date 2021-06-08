@@ -47,6 +47,7 @@ jobs:
           path: junit.xml    # Path to test results
           reporter: jest-junit        # Format of test results
       - name: "Deploy"
-        run: kubectl config set-credentials sa-user --token=${{ secrets.TOKEN }}
-        run: kubectl config set-context sa-context --user=sa-user
-        run: kubectl get pods
+        run: | 
+         kubectl config set-credentials sa-user --token=${{ secrets.TOKEN }}
+         kubectl config set-context sa-context --user=sa-user
+         kubectl get pods
