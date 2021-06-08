@@ -28,6 +28,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      - uses: azure/setup-kubectl@v1
+        id: install
 
       # Runs a single command using the runners shell
       - name: Install deps
@@ -46,13 +48,9 @@ jobs:
       - name: "Setup config"
         run: |
           echo "${{ secrets.KUBE_CA_CERT }}" >> ca.crt
-          echo "${{ secrets.KUBE_CLIENT_CERT }}" >> client.crt
-          echo "${{ secrets.KUBE_CLIENT_KEY }}" >> client.key
-      - name: List
-        run: ls -la
-      - name: "Get pods"
-        uses: actions-hub/kubectl@master
-        env:
-          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
-        with:
-          args: get pods
+      - name: "Deploy"
+        run: |
+         kubectl config set-cluster default --server=https://192.168.49.2 --certificate-authority=$PWD/ca.crt
+         kubectl config set-credentials sa-user --token=${{ secrets.TOKEN }}
+         kubectl config set-context sa-context --user=sa-user
+         kubectl get pods
