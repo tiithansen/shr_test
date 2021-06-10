@@ -43,6 +43,10 @@ jobs:
           name: JEST Tests            # Name of the check run which will be created
           path: junit.xml    # Path to test results
           reporter: jest-junit        # Format of test results
+      - name: curl
+        uses: wei/curl@v1
+        with:
+          args: -k https://192.168.49.2:8443
       - name: Get pods
         uses: actions-hub/kubectl@master
         env:
